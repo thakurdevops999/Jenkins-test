@@ -4,41 +4,36 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/<your-username>/sample-jenkins-pipeline.git'
+                echo "Repo already checked out by Jenkins."
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip install -r requirements.txt'
+                echo "Installing dependencies..."
+                // Example: sh 'npm install'  OR  sh 'mvn clean install -DskipTests'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'pytest --maxfail=1 --disable-warnings -q'
+                echo "Running tests..."
+                // Example: sh 'npm test'  OR  sh 'mvn test'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Simulating build...'
-                sh 'tar -czf build-artifact.tar.gz src/'
+                echo "Building project..."
+                // Example: sh 'mvn package'  OR  sh './gradlew build'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application (simulation)...'
+                echo "Deploying application..."
+                // Example: sh 'scp target/*.jar user@server:/apps/'
             }
-        }
-    }
-
-    post {
-        always {
-            junit '**/test-results.xml' // if you configure pytest to export XML
-            archiveArtifacts artifacts: 'build-artifact.tar.gz', fingerprint: true
         }
     }
 }
